@@ -17,9 +17,9 @@ module.exports = () => {
     const {
       key,
       internalLogging = false,
-      liveMetrics = false,
+      liveMetrics = true,
       traceW3C = false,
-      ignoreURI = [],
+      ignoreURI = ['/__/manifest'],
       insightsConfig = {},
       context: {
         tags = {}
