@@ -1,5 +1,6 @@
 const debug = require('debug')('systemic-azure-metrics');
 const appInsights = require('applicationinsights');
+const { dummyClient } = require('./dummyClient');
 
 module.exports = () => {
   // samplingPercentage, disableAppInsights, etc
@@ -37,6 +38,15 @@ module.exports = () => {
 
     const { disableAppInsights } = insightsConfig;
 
+    // appInsights is NEVER 100% disabled unless we use this hack; eg:
+    // - complains about wrong instrumentation keys
+    // - creates correlationKeys POSTing to Azure endpoint
+    // if you know of any better approach, please shout!
+    if (disableAppInsights) {
+      debug('appInsights disabled: returning dummy client');
+      return dummyClient;
+    }
+
     const requestURIFilter = (envelope) => {
       const { data: { baseType, baseData } } = envelope;
 
@@ -62,8 +72,7 @@ module.exports = () => {
       .setAutoCollectExceptions(exceptions)
       .setAutoCollectDependencies(dependencies)
       .setAutoCollectConsole(console, console)
-      // Apparently live metrics are not being disabled when disabling app insights altogether
-      .setSendLiveMetrics(disableAppInsights ? false : liveMetrics)
+      .setSendLiveMetrics(liveMetrics)
       .setDistributedTracingMode(distributedTracingMode)
       .start();
 
