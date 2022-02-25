@@ -17,7 +17,7 @@ module.exports = () => {
   const start = async ({ config }) => {
     const {
       key,
-      internalLogging = true,
+      internalLogging = false,
       liveMetrics = true,
       traceW3C = false,
       ignoreURI = ['/__/manifest'],
