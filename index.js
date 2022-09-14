@@ -66,6 +66,7 @@ module.exports = () => {
 
     appInsights
       .setup(key)
+      .setAutoDependencyCorrelation(true)
       .setInternalLogging(internalLogging)
       .setAutoCollectRequests(requests)
       .setAutoCollectPerformance(performance, extendedPerformance)
