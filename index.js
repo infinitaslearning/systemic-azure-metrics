@@ -22,6 +22,7 @@ module.exports = () => {
       traceW3C = false,
       ignoreURI = ['/__/manifest'],
       insightsConfig = {},
+      autoDependencyCorrelation = true,
       context: {
         tags = {}
       },
@@ -66,7 +67,7 @@ module.exports = () => {
 
     appInsights
       .setup(key)
-      .setAutoDependencyCorrelation(true)
+      .setAutoDependencyCorrelation(autoDependencyCorrelation)
       .setInternalLogging(internalLogging)
       .setAutoCollectRequests(requests)
       .setAutoCollectPerformance(performance, extendedPerformance)
