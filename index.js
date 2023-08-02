@@ -25,7 +25,7 @@ module.exports = () => {
       autoDependencyCorrelation = true,
       context: {
         tags = {}
-      },
+      } = {},
       autoCollect: {
         requests = true,
         performance = true,
@@ -33,7 +33,7 @@ module.exports = () => {
         exceptions = true,
         dependencies = true,
         console = true
-      }
+      } = {}
     } = config;
     if (!key) throw new Error('No insights key has been provided!');
 
